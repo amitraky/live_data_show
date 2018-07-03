@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title>Push notification long polling server streaming on a MySQL db</title>
+        <style>
+            dd,dt {
+                float:left;
+                margin:0;
+                padding:5px;
+                clear:both;
+                display:block;
+                width:100%;
+
+            }
+            dt {
+                background:#ddd;
+            }
+            time {
+                color:gray;
+            }
+        </style>
+    </head>
+    <body>
+	
+        <div id="container">Loading ...</div>
+		<pre>
+		 <h3 align="center" style="position:fixed;"> Hi Amit Your greating is still pending .</h3>
+        <script src="socket.io/socket.io.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script>
+
+            // create a new websocket
+            var socket = io.connect('http://localhost:8000/?profile_id=abcde2');            
+            // on message received we print all the data inside the #container div
+            socket.on('notification', function (data) {
+               // console.log(data);
+                document.querySelector('h3').innerHTML =(data.users);
+                document.querySelector('div').innerHTML =(data.time);
+				
+            });
+			
+			var str = 'Hi Amit Your greating is still pending ';
+			var i = 0;
+			setInterval(function(){
+			
+			var html = document.querySelector('h3');
+			var text = html.innerHTML;
+			var n = html.innerHTML = text+str[i];
+			if(i== str.length)
+			  i =0;
+		  console.log(n);
+			i++;
+				if(i== str.length)
+				{
+			     i =0;
+				 html.innerHTML = '';
+				 }
+			},800000)
+
+			
+			
+        </script>
+       
+        
+    
+	
+	
+	</body>
+</html>
